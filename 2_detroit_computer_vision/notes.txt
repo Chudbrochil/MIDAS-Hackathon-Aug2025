@@ -44,7 +44,50 @@ Issue with problem:
 
 
 
-# Technical Risks
+
+
+
+
+
+Recommendation#1
+
+Take urbanworm and modify in these ways:
+
+1. Split a "single parcel classification" of opening, roof, facade. This becomes 3 VLM classifications.
+1a. Few-shot prompt each of these.
+- i.e. show examples of opening exposed
+- i.e. show roof being damaged / broken.
+
+
+2. Add the three columns (opening, roof, facade) to the most predictive columns from tabular data like water_status, or usps_vacancy.
+
+Modeling recommendations:
+= Try Qwen-2.5-VL-7B-instruct-AWQ (for a 4090)
+- Can also use phi-4-multimodal (6B params)
+-- https://huggingface.co/microsoft/Phi-4-multimodal-instruct
+
+Recommend trying to get Azure credits to use o4-mini or 4.1-mini through API.
+- Will enable easy versioning of prompts
+- Definitely will cost 
+
+
+Recommendation#2
+
+Tabular data approach, but better.
+
+1. Clean and de-dupe the data better, this will give a better baseline to work with.
+
+2. Add in neighborhood or area level data to parcel's.
+- In this radius, this is how many fire's in the last 1year...
+- Assessed value of surrounding 100 homes.
+
+At the end of this, can try MANY tabular models:
+- xgboost
+- lightgbm
+- autogluon
+
+
+# Technical Risks (tabular ML data approach)
 - Time series data, difficult to predict against without making time series models.
 -- Need to do filtering or discretization (i.e. <1yr, <2yr)
 
@@ -55,7 +98,50 @@ Issue with problem:
 
 - Data distribution shift of labels.
 -- The blight survey only does vacant homes, but we want to predict against all of them.
--- This 
+-- This means that we will have a major shift between what we've trained on.
 
 
+Recommendation #3: Infinite resources
 
+- Feed in every piece of data:
+-- All tabular data columns, per parcel
+-- Street view images, per parcel
+-- Top-down satellite images, per parcel
+
+- Make a very elaborate prompt, few-shot:
+
+"""
+You are an expert housing blight detector. Here are the 4 categories of Blight.
+0: No Blight
+1: Noticeable blight
+2: Significant Blight
+3: Extreme blight
+
+Here is an example of no blight (INSERT IMAGES AND COLUMNS of EXAMPLE NO BLIGHT HOUSE)
+
+Here is an example of noticeable blight (INSERT IMAGES AND COLUMNS of EXAMPLE NOTICABLE BLIGHT HOUSE)
+
+...
+
+Please predict this parcel for blight given all the context.
+
+(INSERT ONE HOME OF IMAGES AND TABULAR DATA, "unrolled")
+"""
+
+- Example costing for GPT-4.1
+-- ESTIMATED: 20k parcels, 30k input tokens, 2k output tokens.
+
+Model pricing:
+• Prompt (input) tokens: $0.06 per 1 000 tokens
+• Completion (output) tokens: $0.12 per 1 000 tokens 
+Microsoft Azure
+
+Total tokens:
+• Prompt: 30 000 tokens × 20 000 samples = 600 000 000 tokens
+• Completion: 2 000 tokens × 20 000 samples = 40 000 000 tokens
+
+Cost:
+• Prompt cost: (600 000 000 / 1 000) × $0.06 = $36 000
+• Completion cost: (40 000 000 / 1 000) × $0.12 = $4 800
+
+Total estimate: $40 800

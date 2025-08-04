@@ -1,0 +1,38 @@
+{
+  "total_samples": 99753,
+  "label_distribution": {
+    "0": 25056,
+    "1": 49401,
+    "2": 21776,
+    "3": 3520
+  },
+  "label_names": {
+    "0": "Vacant (Not Blighted)",
+    "1": "Noticeable Evidence of Blight",
+    "2": "Significant Evidence of Blight",
+    "3": "Extreme Evidence of Blight"
+  },
+  "label_percentages": {
+    "0": 25.11804156265977,
+    "1": 49.523322606838896,
+    "2": 21.82991990215833,
+    "3": 3.528715928343007
+  },
+  "feature_count": 14,
+  "features": [
+    "year_built_x",
+    "tax_status_x",
+    "assessed_value",
+    "is_improved_x",
+    "total_floor_area_x",
+    "property_class_desc",
+    "SURVEYOR_NOTES",
+    "IS_OCCUPIED",
+    "permit_type",
+    "VACANT",
+    "account_active_code",
+    "pct_pre_claimed",
+    "total_acreage",
+    "local_historic_district"
+  ]
+}

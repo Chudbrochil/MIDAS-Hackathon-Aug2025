@@ -150,7 +150,100 @@ Each model generates comprehensive artifacts in `deliverables/[model_name]/`:
 
 The models handle class imbalance through balanced evaluation metrics, stratified sampling, and proper train/validation/test splits.
 
-## Potential Future Computer Vision Components
+## Future Development Recommendations
+
+### Recommendation #1: VLM + Tabular Hybrid
+
+Take urbanworm and modify in these ways:
+
+1. Split a "single parcel classification" of opening, roof, facade. This becomes 3 VLM classifications.
+   - Few-shot prompt each of these:
+     - Show examples of opening exposed
+     - Show roof being damaged/broken
+
+2. Add the three columns (opening, roof, facade) to the most predictive columns from tabular data like water_status or usps_vacancy.
+
+**Modeling recommendations:**
+- Try Qwen-2.5-VL-7B-instruct-AWQ (for a 4090)
+- Can also use phi-4-multimodal (6B params)
+  - https://huggingface.co/microsoft/Phi-4-multimodal-instruct
+
+Recommend trying to get Azure credits to use GPT-4o-mini or GPT-4.1-mini through API.
+- Will enable easy versioning of prompts
+- Definitely will cost
+
+### Recommendation #2: Tabular data approach, but better
+
+1. Clean and de-dupe the data better, this will give a better baseline to work with.
+
+2. Add in neighborhood or area level data to parcels:
+   - In this radius, this is how many fires in the last 1 year...
+   - Assessed value of surrounding 100 homes.
+
+At the end of this, can try MANY tabular models:
+- xgboost
+- lightgbm
+- autogluon
+
+#### Technical Risks (tabular ML data approach)
+- Time series data, difficult to predict against without making time series models.
+  - Need to do filtering or discretization (i.e. <1yr, <2yr)
+
+- **#1 Duplication of data** based on surveys, permits issued, usps vacancy checks, water status checks.
+
+- **#2 Deduplication of addresses/units** per parcel ID
+  - You have to consider the determination per unit vs. per parcel, they might be very different.
+
+- **Data distribution shift of labels.**
+  - The blight survey only does vacant homes, but we want to predict against all of them.
+  - This means that we will have a major shift between what we've trained on.
+
+### Recommendation #3: Infinite resources
+
+Feed in every piece of data:
+- All tabular data columns, per parcel
+- Street view images, per parcel
+- Top-down satellite images, per parcel
+
+Make a very elaborate prompt, few-shot:
+
+```
+You are an expert housing blight detector. Here are the 4 categories of Blight.
+0: No Blight
+1: Noticeable blight
+2: Significant Blight
+3: Extreme blight
+
+Here is an example of no blight (INSERT IMAGES AND COLUMNS of EXAMPLE NO BLIGHT HOUSE)
+
+Here is an example of noticeable blight (INSERT IMAGES AND COLUMNS of EXAMPLE NOTICEABLE BLIGHT HOUSE)
+
+...
+
+Please predict this parcel for blight given all the context.
+
+(INSERT ONE HOME OF IMAGES AND TABULAR DATA, "unrolled")
+```
+
+**Example costing for GPT-4.1**
+- ESTIMATED: 20k parcels, 30k input tokens, 2k output tokens.
+
+Model pricing:
+• Prompt (input) tokens: $0.06 per 1,000 tokens
+• Completion (output) tokens: $0.12 per 1,000 tokens 
+Microsoft Azure
+
+Total tokens:
+• Prompt: 30,000 tokens × 20,000 samples = 600,000,000 tokens
+• Completion: 2,000 tokens × 20,000 samples = 40,000,000 tokens
+
+Cost:
+• Prompt cost: (600,000,000 / 1,000) × $0.06 = $36,000
+• Completion cost: (40,000,000 / 1,000) × $0.12 = $4,800
+
+**Total estimate: $40,800**
+
+### Current Computer Vision Potential
 
 **Planned Features**:
 - Aerial imagery analysis for building condition assessment
@@ -158,4 +251,4 @@ The models handle class imbalance through balanced evaluation metrics, stratifie
 - Temporal analysis of building deterioration (1999-2024)
 - Integration of survey data with visual analysis
 
-**Potential Tech Stack**: OpenCV, PyTorch/TensorFlow, satellite/aerial imagery APIs, computer vision models
+**Tech Stack**: OpenCV, PyTorch/TensorFlow, VLMs, satellite/aerial imagery APIs

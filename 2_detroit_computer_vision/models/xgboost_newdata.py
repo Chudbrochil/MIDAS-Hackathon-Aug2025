@@ -33,23 +33,61 @@ def load_data(features_path, labels_path):
     
     print(f"Original features: {len(features_df)}, labels: {len(labels_df)}")
     
-    # Remove duplicates - keep first occurrence only
-    print("Removing duplicates...")
-    features_df = features_df.drop_duplicates(subset=['PARCEL_ID_x'], keep='first')
-    labels_df = labels_df.drop_duplicates(subset=['PARCEL_ID_x'], keep='first')
+    # Check original label distribution
+    if 'label' in labels_df.columns:
+        print("Original label distribution:")
+        print(labels_df['label'].value_counts().sort_index())
     
-    print(f"After deduplication - features: {len(features_df)}, labels: {len(labels_df)}")
+    # Remove exact duplicates (all columns identical) but keep legitimate multiple observations
+    print("\nRemoving exact duplicates...")
+    features_df_before = len(features_df)
+    labels_df_before = len(labels_df)
     
-    # Merge on PARCEL_ID_x
+    features_df = features_df.drop_duplicates(keep='first')
+    labels_df = labels_df.drop_duplicates(keep='first')
+    
+    print(f"Features: {features_df_before} -> {len(features_df)} (removed {features_df_before - len(features_df)})")
+    print(f"Labels: {labels_df_before} -> {len(labels_df)} (removed {labels_df_before - len(labels_df)})")
+    
+    # Check label distribution after deduplication
+    if 'label' in labels_df.columns:
+        print("Label distribution after deduplication:")
+        print(labels_df['label'].value_counts().sort_index())
+    
+    # Check for remaining duplicates by PARCEL_ID_x
+    feat_dups = features_df['PARCEL_ID_x'].duplicated().sum()
+    label_dups = labels_df['PARCEL_ID_x'].duplicated().sum()
+    print(f"\nRemaining PARCEL_ID_x duplicates - features: {feat_dups}, labels: {label_dups}")
+    
+    # Merge and check result
     data = features_df.merge(labels_df, on='PARCEL_ID_x', how='inner')
-    
     print(f"After merge: {len(data)} samples")
     
-    # Verify no duplicates in final dataset
-    if data['PARCEL_ID_x'].duplicated().sum() > 0:
-        print(f"WARNING: {data['PARCEL_ID_x'].duplicated().sum()} duplicate PARCEL_ID_x in final dataset")
-        data = data.drop_duplicates(subset=['PARCEL_ID_x'], keep='first')
-        print(f"After final deduplication: {len(data)} samples")
+    # Check final label distribution
+    if 'label' in data.columns:
+        print("Final label distribution after merge:")
+        print(data['label'].value_counts().sort_index())
+    
+    # If the merge created too many rows, we have a problem
+    if len(data) > max(len(features_df), len(labels_df)) * 5:
+        print(f"WARNING: Merge created {len(data)} rows from {len(features_df)} features and {len(labels_df)} labels")
+        print("This suggests a many-to-many merge. Investigating...")
+        
+        # Check which parcels have multiple entries
+        feat_multi = features_df[features_df['PARCEL_ID_x'].duplicated(keep=False)]['PARCEL_ID_x'].value_counts().head()
+        label_multi = labels_df[labels_df['PARCEL_ID_x'].duplicated(keep=False)]['PARCEL_ID_x'].value_counts().head()
+        
+        print(f"Top parcels with multiple feature entries:\n{feat_multi}")
+        print(f"Top parcels with multiple label entries:\n{label_multi}")
+        
+        # For now, let's just keep unique rows from the merged data
+        data_before = len(data)
+        data = data.drop_duplicates(keep='first')
+        print(f"After removing duplicates from merged data: {data_before} -> {len(data)}")
+        
+        if 'label' in data.columns:
+            print("Final label distribution after final deduplication:")
+            print(data['label'].value_counts().sort_index())
     
     return data
 
