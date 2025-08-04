@@ -1,0 +1,61 @@
+Raw notes;
+
+
+
+Derek
+
+- Just because something is blighted doesn't mean it's uninhabited.
+
+- Detroit has street view data.
+-- Q: Is this joinable?
+
+
+
+
+
+one parcel can have multiple units
+
+Blight labels
+
+vacant, not blighted
+
+slightly blighted?
+
+significantly blighted
+
+extreme blighted
+
+
+The blight data is only for properties that are for vacant lots...
+
+
+Keerthana:
+- We want to get more blight rather than less, because we can shortlist these afterwards.
+- Recall is more important.
+
+
+Issue with problem:
+- Time is a an issue because we are joining against multiple field surveys.
+-- Potential solution: Take only last survey
+
+
+# Non-occupied blight, data distribution shift.
+
+
+
+
+# Technical Risks
+- Time series data, difficult to predict against without making time series models.
+-- Need to do filtering or discretization (i.e. <1yr, <2yr)
+
+- #1 Duplication of data based on surveys, permits issued, usps vacancy checks, water status checks.
+
+- #2 Deduplication of addresses/units per parcel ID
+-- You have to consider the determination per unit vs. per parcel, they might be very different.
+
+- Data distribution shift of labels.
+-- The blight survey only does vacant homes, but we want to predict against all of them.
+-- This 
+
+
+
