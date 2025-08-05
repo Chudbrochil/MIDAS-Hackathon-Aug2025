@@ -1,152 +1,171 @@
 # MIDAS Hackathon - AI for Social Good Projects
 
-This repository contains two distinct AI projects developed for the MIDAS Hackathon, focused on applying machine learning and AI technologies to address real-world social challenges.
-
-## 🎯 Project Overview
-
-### Project 1: RAG Systems for Enhanced Information Access
-**Directory**: `proj1_chatbots_for_mich/`
-
-Educational implementations of Retrieval-Augmented Generation (RAG) systems, demonstrating both manual and framework-based approaches for building intelligent question-answering systems.
-
-### Project 2: Blight Detection for Urban Safety
-**Directory**: `proj2_blight_classification/` 
-
-Machine learning system for detecting and classifying property blight severity to support municipal intervention efforts and community safety initiatives.
-
----
-
-## 💬 Project 1: RAG Systems Comparison
-
-### Problem Statement
-Information access and knowledge management are critical challenges in many domains. RAG systems enhance AI responses by combining retrieval of relevant information with natural language generation.
-
-### Our Solution
-Two complete RAG implementations for educational and production use:
-
-1. **Manual RAG** (`medium_manual_rag/`): Built from scratch for learning
-   - Custom TF-IDF embeddings and retrieval
-   - Template-based generation
-   - Zero external dependencies
-   - ~800 lines of educational code
-
-2. **LangChain RAG** (`easy_langchain_rag/`): Modern framework implementation
-   - OpenAI embeddings and GPT integration
-   - FAISS vector database
-   - Production-ready architecture
-   - ~30 lines of framework code
-
-### Educational Value
-Provides clear learning progression from fundamental algorithms to modern AI frameworks, with comprehensive documentation and examples for computer science education.
-
----
-
-## 🏠 Project 2: Blight Detection System
-
-### Problem Statement
-Property blight poses serious threats to public health, safety, and neighborhood stability. In Detroit alone, blighted properties contribute to:
-- Reduced neighborhood quality of life and community pride
-- Public safety hazards and health risks
-- Economic decline and reduced property values
-- Community disinvestment and population loss
-
-### Our Solution
-A comprehensive XGBoost-based classification system that predicts property blight severity on a 4-level scale:
-
-- **Level 1**: No blight (well-maintained property)
-- **Level 2**: Minor blight (cosmetic issues, minor repairs needed)
-- **Level 3**: Moderate blight (structural issues, significant deterioration)  
-- **Level 4**: Severe blight (unsafe/uninhabitable, potential demolition)
-
-### Impact & Applications
-This system helps municipalities:
-- **Prioritize inspections** based on blight risk scores
-- **Allocate resources** efficiently to highest-risk properties
-- **Support community planning** with data-driven insights
-- **Track progress** of neighborhood improvement initiatives
-
-The model achieves 59.5% accuracy with excellent screening capabilities (97.5% recall for identifying non-blighted properties), making it valuable for municipal resource allocation.
-
-### Technical Approach
-- **Data Sources**: 22 features from property records, tax data, code enforcement, USPS vacancy indicators, and neighborhood demographics
-- **Model**: XGBoost multi-class classifier with comprehensive evaluation metrics  
-- **Scale**: Trained on datasets up to 100,000 properties
-- **Deployment**: Production-ready prediction pipeline with batch processing capabilities
-
----
+This repository contains machine learning and AI implementations developed for the MIDAS Hackathon, focusing on technical applications for Detroit urban challenges.
 
 ## 🚀 Quick Start
 
-### Project 1: RAG Systems
+### Environment Setup
 ```bash
-cd proj1_chatbots_for_mich
+# Option 1: Conda (Recommended)
+conda env create -f environment.yml
+conda activate midas_aug25
 
-# Educational path - start with manual implementation
-cd medium_manual_rag
-python simple_rag.py
-
-# Production path - modern framework
-cd ../easy_langchain_rag
+# Option 2: Pip
 pip install -r requirements.txt
-python langchain_rag.py
 ```
 
-### Project 2: Blight Detection
-```bash
-cd proj2_blight_classification
-pip install -r requirements.txt
+NOTE: You may have to install another layer of requirements.txt files within the projects.
 
-# Generate synthetic data
-python generate_synthetic_data.py
+### Learning Resources
+🎓 **New to ML/RAG?** Start here: [`learning/`](learning/)
+- **RAG Tutorial**: `learning/rag_for_proj1/` - Learn LangChain and vector databases
+- **Tabular ML Tutorial**: `learning/xgboost_for_proj2/` - Learn XGBoost for classification
 
-# Train models
-python train_blight_model.py
+**External Resources:**
+- **RAG-time**: [Microsoft's RAG cookbook](https://github.com/microsoft/rag-time) - Production RAG patterns
+- **XGBoost Guide**: [Complete Guide to Parameter Tuning](https://xgboost.readthedocs.io/en/stable/tutorials/param_tuning.html) - Official XGBoost tuning
 
-# Make predictions
-python predict_blight.py --model models/blight_model_large_dataset.joblib --demo
-```
+## 📊 Projects
+
+### Project 1: Detroit Open Data Portal Enhancement
+**Directory**: [`1_detroit_open_data_portal/`](1_detroit_open_data_portal/)
+
+Natural language chatbot for Detroit's Open Data Portal with 200+ city datasets.
+
+**Potential Tech Stack**: LangChain, FAISS, OpenAI API, vector embeddings, RAG (Retrieval-Augmented Generation)
+
+### Project 2: Detroit Computer Vision for Building Habitability
+**Directory**: [`2_detroit_computer_vision/`](2_detroit_computer_vision/)
+
+Computer vision tools for building habitability using Detroit imagery spanning 1999-2024.
+
+**Potential Future Components**: Computer vision models for aerial/street imagery analysis, temporal building deterioration analysis
+
+### Project 3: Detroit Flood Risk Policy Analysis
+**Directory**: [`3_detroit_flood_risk_analysis/`](3_detroit_flood_risk_analysis/)
+
+Interactive flood/erosion risk policy tool inspired by En-ROADS for stakeholder-driven scenario analysis.
+
+**Potential Tech Stack**: LLM integration for scenario generation, hydrological modeling, geospatial analysis, interactive web platform
+
+## 🛠️ Technical Details
+
+### Core Technologies
+- **Machine Learning**: XGBoost, scikit-learn, Optuna (hyperparameter optimization)
+- **RAG/LLM**: LangChain, FAISS, OpenAI API, vector embeddings
+- **Data Science**: pandas, numpy, matplotlib, seaborn, Jupyter
+- **Geospatial**: geopandas, folium, contextily
+
+### Key Features
+- **Reproducible environments** with conda/pip specifications
+- **Comprehensive evaluation** with balanced metrics for imbalanced data
+- **Production-ready code** with proper logging, model persistence
+- **Educational examples** in `learning/` directory
 
 ## 📁 Repository Structure
 
 ```
 MIDAS-Hackathon-Aug2025/
-├── proj1_chatbots_for_mich/       # RAG Systems Project
-│   ├── medium_manual_rag/         # Educational RAG implementation
-│   ├── easy_langchain_rag/        # Production RAG with LangChain
-│   └── README.md
-├── proj2_blight_classification/   # Blight Detection Project  
-│   ├── data/                      # Generated datasets
-│   ├── models/                    # Trained XGBoost models
-│   ├── generate_synthetic_data.py # Dataset creation
-│   ├── train_blight_model.py     # Model training pipeline
-│   ├── predict_blight.py         # Prediction interface
-│   └── README.md
-└── README.md                      # This file
+├── 1_detroit_open_data_portal/     # RAG for open data search
+├── 2_detroit_computer_vision/      # ML for blight classification
+│   ├── models/                    # XGBoost implementations
+│   ├── training_data/             # Processed datasets
+│   ├── deliverables/              # Model outputs & visualizations
+│   └── eda/                       # Exploratory data analysis
+├── 3_detroit_flood_risk_analysis/  # Policy modeling tool
+├── learning/                       # 🎓 Start here for tutorials
+│   ├── rag_for_proj1/             # Learn RAG implementation
+│   └── xgboost_for_proj2/         # Learn tabular ML
+├── data/                          # Raw datasets (not in git)
+├── environment.yml                # Conda environment
+├── requirements.txt               # Pip requirements
+└── SETUP.md                       # Detailed setup guide
 ```
 
-## 🎯 Social Impact Goals
+## 🔬 Data & Performance
 
-Both projects demonstrate AI's potential for positive social impact:
+### Project 2 - Blight Classification (Baseline Model)
+**Current Implementation**: Multi-class blight classification using Detroit Land Bank Authority survey data as foundation for future computer vision work.
 
-- **Project 1** enhances information accessibility and AI education
-- **Project 2** directly supports urban safety and community improvement efforts
+**Problem**: Multi-class classification (0=No Blight → 3=Extreme Blight)
+**Data**: Detroit Land Bank Authority survey data (~98k property records)
+**Features**: Property condition indicators (roof, openings, occupancy, fire damage)
+**Class Distribution**: Highly imbalanced (49% class 1, 4% class 3)
 
-These implementations provide practical tools while advancing understanding of applied machine learning for social good.
+**Tech Stack**: XGBoost, scikit-learn, Optuna, pandas, matplotlib
+
+**Baseline Model Results**:
+- **XGBoost Baseline**: 62.6% accuracy, 51.4% macro F1
+- **XGBoost Optimized**: Bayesian hyperparameter tuning with Optuna
+- **Key Finding**: OPENINGS_CONDITION most predictive feature (60% importance)
+- **Challenge**: Poor performance on minority classes (severe blight cases)
+
+## 🧪 Running the Code
+
+### Project 2 Models
+```bash
+cd 2_detroit_computer_vision/models/
+python xgboost_baseline.py      # Baseline model
+python xgboost_optimized1.py    # Bayesian optimization + advanced features
+```
+
+### Learning Tutorials
+```bash
+# XGBoost Tutorial (Project 2)
+cd learning/xgboost_for_proj2/
+python generate_synthetic_data.py  # Generate demo data first
+python train_blight_model.py       # Learn XGBoost with synthetic data
+python predict_blight.py --model models/blight_model_large_dataset.joblib --demo
+
+# RAG Tutorial (Project 1)
+cd learning/rag_for_proj1/easy_langchain_rag/
+python synthetic_knowledge_base.py  # Generate knowledge base first
+python run_rag_demo.py              # Learn RAG implementation
+```
+
+## 📈 Technical Contributions
+
+### Machine Learning
+- **Bayesian hyperparameter optimization** using Optuna TPE sampler
+- **Advanced feature engineering** with interaction terms
+- **Proper evaluation** for imbalanced multi-class problems
+- **Production pipeline** with model persistence and logging
+
+### RAG Implementation
+- **Vector database** setup with FAISS
+- **Document chunking** and embedding strategies
+- **Graceful degradation** when API keys unavailable
+
+## 🎯 Impact & Applications
+
+**Technical Applications**:
+- **Automated property assessment** using tabular data
+- **Semantic search** over large document collections
+- **Policy scenario modeling** with LLM integration
+
+**Educational Value**:
+- **Complete ML pipelines** from data preprocessing to evaluation
+- **Best practices** for imbalanced classification
+- **RAG implementation** with practical examples
 
 ## 🤝 Contributing
 
-This hackathon project welcomes contributions to:
-- Improve model performance and fairness
-- Add real-world data integration
-- Enhance educational documentation
-- Expand to additional social good applications
+Focus areas for technical contributions:
+- **Model improvements**: Better handling of class imbalance, ensemble methods
+- **Feature engineering**: Time-series features, spatial features from coordinates
+- **Evaluation**: Additional metrics, fairness analysis
+- **Documentation**: More tutorial examples, advanced techniques
 
-## 📜 About
+## 📄 License
 
-Developed for the MIDAS Hackathon with focus on applying AI and machine learning technologies to address real-world challenges affecting communities and urban environments.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Here's a [link](https://midas.umich.edu/) for general MIDAS resources.
+Feel free to use, modify, and distribute this code for any purpose!
+
+## ⚠️ Disclaimer
+
+This project was developed independently as part of the MIDAS Hackathon. The code, documentation, and all content in this repository represent personal work and opinions, and are not affiliated with, endorsed by, or related to any employer or organization. All views expressed are my own.
 
 ---
 
-*🌟 AI for Social Good - Building technology that serves communities*
+**🔧 Built with Python, scikit-learn, XGBoost, LangChain, and other modern ML tools**

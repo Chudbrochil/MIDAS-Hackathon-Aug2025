@@ -1,0 +1,51 @@
+name: midas_aug25
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # Core Python
+  - python=3.10
+  
+  # Data Science Core
+  - pandas>=1.5.0
+  - numpy>=1.24.0
+  - matplotlib>=3.6.0
+  - seaborn>=0.12.0
+  
+  # Machine Learning
+  - scikit-learn>=1.2.0
+  - xgboost>=2.0.0
+  - joblib>=1.2.0
+  
+  # Jupyter and Analysis
+  - jupyter
+  - jupyterlab
+  - ipykernel
+  - notebook
+  
+  # File handling and utilities
+  - openpyxl  # For Excel files
+  - xlrd      # Excel reading support
+  - pathlib
+  
+  # GIS and Spatial (optional but useful for Detroit data)
+  - geopandas
+  - folium
+  - contextily
+  
+  # Development tools
+  - pip
+  
+  # Install via pip (packages not available on conda-forge)
+  - pip:
+    # LangChain ecosystem for RAG
+    - langchain
+    - langchain-openai
+    - langchain-community
+    - faiss-cpu
+    
+    # Machine Learning - Hyperparameter optimization
+    - optuna>=3.4.0
+    
+    # Additional utilities
+    - python-dotenv  # For environment variables

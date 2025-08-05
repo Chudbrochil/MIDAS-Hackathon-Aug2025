@@ -1,0 +1,24 @@
+{
+  "total_samples": 98320,
+  "label_distribution": {
+    "0": 26402,
+    "1": 48451,
+    "2": 19779,
+    "3": 3688
+  },
+  "label_percentages": {
+    "0": 26.85,
+    "1": 49.28,
+    "2": 20.12,
+    "3": 3.75
+  },
+  "feature_count": 6,
+  "features": [
+    "DATE_SURVEYED",
+    "IS_OCCUPIED",
+    "FIRE_DAMAGE_CONDITION",
+    "ROOF_CONDITION",
+    "OPENINGS_CONDITION",
+    "IS_OPEN_TO_TRESPASS"
+  ]
+}

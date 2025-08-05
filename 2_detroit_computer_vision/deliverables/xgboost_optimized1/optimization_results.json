@@ -1,0 +1,26 @@
+{
+  "best_value": 0.5455827943403053,
+  "best_params": {
+    "max_depth": 10,
+    "learning_rate": 0.3885815991546552,
+    "n_estimators": 1500,
+    "subsample": 0.7880050560539137,
+    "colsample_bytree": 0.9198933103298884,
+    "colsample_bylevel": 0.7438152033330016,
+    "colsample_bynode": 0.5554479848530254,
+    "reg_alpha": 2.727962156043771,
+    "reg_lambda": 3.0126385758905863e-05,
+    "min_child_weight": 5,
+    "gamma": 4.358186947809011,
+    "max_delta_step": 6.838076448379788,
+    "grow_policy": "depthwise",
+    "objective": "multi:softprob",
+    "num_class": 4,
+    "eval_metric": "mlogloss",
+    "random_state": 42,
+    "verbosity": 0,
+    "tree_method": "hist"
+  },
+  "n_trials": 50,
+  "timestamp": "2025-08-03T21:19:37.408701"
+}

@@ -1,0 +1,40 @@
+# MIDAS Hackathon August 2025 - Complete Requirements
+# Install with: pip install -r requirements.txt
+
+# Data Science Core
+pandas>=1.5.0
+numpy>=1.24.0
+matplotlib>=3.6.0
+seaborn>=0.12.0
+
+# Machine Learning
+scikit-learn>=1.2.0
+xgboost>=2.0.0
+joblib>=1.2.0
+optuna>=3.4.0  # For hyperparameter optimization
+
+# File handling
+openpyxl>=3.0.0  # Excel files
+xlrd>=2.0.0      # Excel reading
+
+# Jupyter
+jupyter>=1.0.0
+jupyterlab>=3.0.0
+ipykernel>=6.0.0
+notebook>=6.0.0
+
+# LangChain ecosystem for RAG projects
+langchain>=0.1.0
+langchain-openai>=0.1.0
+langchain-community>=0.1.0
+faiss-cpu>=1.7.0
+
+# GIS and Spatial Analysis (for Detroit geographic data)
+geopandas>=0.12.0
+folium>=0.14.0
+contextily>=1.3.0
+
+# Utilities
+python-dotenv>=1.0.0
+pathlib2>=2.3.0
+argparse>=1.4.0

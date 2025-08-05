@@ -1,2 +1,0 @@
-parcel_id,property_age,square_footage,assessed_value,lot_size,tax_delinquent_years,tax_amount_owed,num_code_violations,days_since_last_inspection,open_violations,vacant_mail_holds,delivery_issues,neighborhood_median_income,crime_incidents_nearby,distance_to_downtown,num_foreclosures_nearby,vacant_lots_nearby,utility_shutoffs,water_shutoffs,sidewalk_condition,building_material_quality,roof_condition,lot_condition
-PARL99999999,85,800,15000,2000,5,12000,8,900,4,3,2,22000,12,15,5,8,3,2,1,1,1,1
