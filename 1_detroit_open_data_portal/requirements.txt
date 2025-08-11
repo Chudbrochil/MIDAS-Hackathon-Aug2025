@@ -1,0 +1,20 @@
+# Detroit Open Data Portal
+streamlit
+pandas
+numpy
+pydantic
+langchain
+langchain-community
+langchain-ollama
+langchain-chroma
+chromadb
+requests
+plotly
+geopy
+Pillow
+python-dateutil
+python-dotenv
+chromadb
+ollama
+requests
+beautifulsoup4
