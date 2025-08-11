@@ -1,5 +1,5 @@
 """
-Incident Management System - Core Data Models
+Core Data Models
 
 This module defines the foundational data structures for incident management,
 including validation rules, enums, and conversion utilities for various

@@ -1,10 +1,7 @@
 """
-Detroit Open Data Portal
-
 A comprehensive web application for analyzing emergency response data in Detroit.
 Provides interactive dashboards, natural language querying, and advanced analytics
 for incident management and performance monitoring.
-
 """
 
 import json

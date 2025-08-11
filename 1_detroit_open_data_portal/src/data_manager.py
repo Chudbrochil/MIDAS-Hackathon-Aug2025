@@ -1,5 +1,5 @@
 """
-Incident Management System - Data Manager
+Data Manager
 
 Handles incident data ingestion, storage, and retrieval using vector embeddings
 for semantic search capabilities. Supports multiple data formats and provides

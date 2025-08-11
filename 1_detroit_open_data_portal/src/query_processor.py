@@ -1,5 +1,5 @@
 """
-Incident Management System - Query Processor
+Query Processor
 
 Provides natural language query processing using Retrieval-Augmented Generation (RAG)
 to answer questions about incident data. Integrates with vector search and language
