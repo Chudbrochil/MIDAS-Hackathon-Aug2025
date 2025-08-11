@@ -134,3 +134,5 @@ beautifulsoup4
 🎓 **New to RAG?** Start here: [`../learning/rag_for_proj1/`](../learning/rag_for_proj1/)
 
 Complete tutorial on LangChain and vector databases with practical examples.
+
+**Note**: This is a research and analytics tool designed for city of detroit open portal data. Ensure compliance with data privacy policies and municipal data governance requirements when working with sensitive data. It can be adapted for other municipal incident management systems with similar GeoJSON structures.
